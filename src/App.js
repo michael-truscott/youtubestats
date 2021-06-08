@@ -1,23 +1,51 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import SearchForm from './components/SearchForm';
+import VideoData from './components/VideoData';
 import './App.css';
 
+const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 function App() {
+  async function searchForId(id) {
+    console.log(id);
+    const data = await getVideoInfo(id);
+    setData(data);
+  }
+
+  async function getVideoInfo(videoId) {
+    videoId = encodeURIComponent(videoId);
+    const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) {
+      return null;
+    }
+    const data = await response.json();
+    if (!data.items || data.items.length === 0) {
+      return null;
+    }
+
+    const item = data.items[0];
+    console.log(item);
+    return {
+      title: item.snippet.title,
+      channelTitle: item.snippet.channelTitle,
+      tags: item.snippet.tags,
+      thumbnail: item.snippet.thumbnails.high,
+    };
+  }
+
+  const [data, setData] = useState(null);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Youtube Stats</h1>
       </header>
+      <SearchForm searchForId={searchForId}></SearchForm>
+      <VideoData data={data}></VideoData>
     </div>
   );
 }
