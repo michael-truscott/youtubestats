@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+const neverGonnaGive = 'dQw4w9WgXcQ';
+
 function SearchForm(props) {
-    const [searchId, setSearchId] = useState('');
+    const [searchId, setSearchId] = useState(neverGonnaGive);
 
     function handleChange(e) {
         setSearchId(e.target.value);

@@ -7,6 +7,16 @@ function VideoData(props) {
             <p>No Data</p>
         );
     } else {
+        let tags;
+        if (props.data.tags) {
+            tags = (
+                <ul>
+                    {props.data.tags.map((tag,i) => <li key={i}>{tag}</li>)}
+                </ul>
+            );
+        } else {
+            tags = ' - None';
+        }
         dataContents = (
             <ul>
                 <h3>Thumbnail</h3>
@@ -15,13 +25,11 @@ function VideoData(props) {
                     height={props.data.thumbnail.height} />
                 <li><b>Title</b> - {props.data.title}</li>
                 <li><b>Channel Title</b> - {props.data.channelTitle}</li>
-                <li><b>Tags</b>
-                    {!props.data.tags ? ' - None' : (
-                    <ul>
-                        {props.data.tags.map((tag,i) => <li key={i}>{tag}</li>)}
-                    </ul>
-                    )}
-                </li>
+                <li><b>View Count</b> - {props.data.statistics.viewCount}</li>
+                <li><b>Likes</b> - {props.data.statistics.likeCount}</li>
+                <li><b>Dislikes</b> - {props.data.statistics.dislikeCount}</li>
+                <li><b>Comments</b> - {props.data.statistics.commentCount}</li>
+                <li><b>Tags</b>{tags}</li>
             </ul>
         );
     }

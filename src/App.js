@@ -14,7 +14,7 @@ function App() {
 
   async function getVideoInfo(videoId) {
     videoId = encodeURIComponent(videoId);
-    const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`, {
+    const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet,statistics`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -34,6 +34,7 @@ function App() {
       channelTitle: item.snippet.channelTitle,
       tags: item.snippet.tags,
       thumbnail: item.snippet.thumbnails.high,
+      statistics: item.statistics,
     };
   }
 
@@ -46,6 +47,9 @@ function App() {
       </header>
       <SearchForm searchForId={searchForId}></SearchForm>
       <VideoData data={data}></VideoData>
+      <footer className="app-footer">
+        <h3>Youtube Stats by Michael Truscott - 2021</h3>
+      </footer>
     </div>
   );
 }
