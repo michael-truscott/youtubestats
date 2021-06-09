@@ -30,6 +30,7 @@ function App() {
     const item = data.items[0];
     console.log(item);
     return {
+      url: `https://www.youtube.com/watch?v=${videoId}`,
       title: item.snippet.title,
       channelTitle: item.snippet.channelTitle,
       tags: item.snippet.tags,

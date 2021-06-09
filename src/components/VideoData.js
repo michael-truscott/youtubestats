@@ -24,6 +24,7 @@ function VideoData(props) {
                     width={props.data.thumbnail.width}
                     height={props.data.thumbnail.height} />
                 <li><b>Title</b> - {props.data.title}</li>
+                <li><b>Link</b> - <a href={props.data.url} target="_blank" rel="noopener noreferrer">{props.data.url}</a></li>
                 <li><b>Channel Title</b> - {props.data.channelTitle}</li>
                 <li><b>View Count</b> - {props.data.statistics.viewCount}</li>
                 <li><b>Likes</b> - {props.data.statistics.likeCount}</li>
